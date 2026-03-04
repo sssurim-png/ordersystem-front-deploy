@@ -1,0 +1,47 @@
+name: deploy to s3, cloudfront
+# 그냥 이름 정한거
+
+
+# 이벤트정의(트리거)-어떨때 일어나냐 (중요)
+on:
+    push:
+        branches:
+            - main
+            # 메인브랜치에 푸쉬했을 때
+
+            # 자동빌드
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            # uses: 재사용이 가능한 사전에 만들어진 작업절차
+            - uses: actions/checkout@v2
+
+            - name: setup nodejs
+              uses: actions/setup-node@v2
+              with:
+                node-version: '24'
+
+            # run은 개발자가 직접 작업을 정의
+            - name: npm install
+              working-directory: .
+              run: npm install
+            
+            - name: npm build
+              working-directory: .
+              run: npm run build
+              # 가상pc만들어진것
+
+            - name: setup aws cli
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
+                aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+                aws-region: "ap-northeast-2"
+            
+            - name: deploy to s3
+              run: aws s3 cp ./dist s3://www.rim2379.store/ --recursive
+              # s3 버킷에다가 카피하겠다 /--재귀적으로
+
+            - name: invalidate cloudfront
+              run: aws cloudfront create-invalidation --distribution-id EY2RDOEKK555A --paths "/*"
