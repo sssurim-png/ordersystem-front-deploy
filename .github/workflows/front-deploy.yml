@@ -44,4 +44,4 @@ jobs:
               # s3 버킷에다가 카피하겠다 /--재귀적으로
 
             - name: invalidate cloudfront
-              run: aws cloudfront create-invalidation --distribution-id EY2RDOEKK555A --paths "/*"
+              run: aws cloudfront create-invalidation --distribution-id EDV6I2ADEXRPO --paths "/*"
