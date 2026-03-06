@@ -56,9 +56,9 @@ export default {
             // 객체를 조립하여 axios.post할 경우 json자동형변환
              try{
             const data = {name:this.name, email: this.email, password:this.password};
-            const result =await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`,data);
-            
-            console.log(result.data);
+            console.log(`${process.env.VUE_APP_API_BASE_URL}/member/create`);
+            console.log(data);
+            await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`,data);
             this.$router.push("/");
             
             }catch(e){
