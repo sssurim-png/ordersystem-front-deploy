@@ -55,9 +55,9 @@ export default {
         async memberCreate(){
             // 객체를 조립하여 axios.post할 경우 json자동형변환
              try{
+            const result =  await axios.get(`${process.env.VUE_APP_API_BASE_URL}/health`);
+            console.log(result)
             const data = {name:this.name, email: this.email, password:this.password};
-            console.log(`${process.env.VUE_APP_API_BASE_URL}/member/create`);
-            console.log(data);
             await axios.post(`${process.env.VUE_APP_API_BASE_URL}/member/create`,data);
             this.$router.push("/");
             
