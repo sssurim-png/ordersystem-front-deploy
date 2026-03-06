@@ -13,7 +13,7 @@
         </div>
         </v-col>
         <v-col calss="text-center">
-            <v-btn :to="'/'">githup shop</v-btn>
+            <v-btn :to="'/'">githup shop22</v-btn>
         </v-col>
         <v-col calss="d-flexjustify-end">
             <v-btn v-if="isLogined" :to = "'/order/cart'">장바구니 {{ totalQuantity }}</v-btn>
