@@ -42,7 +42,7 @@ export default{
     },
     // created: 화면이 생성되기 직전에 자동실행되는 함수
     async created(){
-        const result = await axios.get("http://localhost:8080/product/list")
+        const result = await axios.get("https://rim2379.store:8080/product/list")
         this.productList = result.data.content;
         // .data무조건 해야한다
 
